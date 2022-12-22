@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="3.1.0" client="site" method="upgrade">
+    <name>Tiny Slideshow</name>
+    <author>Manuel Häusler</author>
+    <authorUrl>www.tech.spuur.ch</authorUrl>
+    <creationDate>March 2022</creationDate>
+    <copyright>Copyright (C) 2022 Manuel Haeusler. All rights reserved.</copyright>
+    <license>GNU General Public License version 3 or later</license>
+    <version>1.0.0</version>
+    <description>MOD_TINYSLIDER_XML_DESCRIPTION</description>
+    <files>
+        <filename module="mod_tinyslider">mod_tinyslider.php</filename>
+        <filename>mod_tinyslider.xml</filename>
+        <filename>index.html</filename>
+        <filename>tmpl/default.php</filename>
+        <filename>tmpl/index.html</filename>
+        <folder>language</folder>
+    </files>
+    <media folder="media" destination="mod_tinyslider">
+        <folder>js</folder>
+        <folder>css</folder>
+    </media>
+    <languages>
+        <language tag="en-GB">language/en-GB/en-GB.mod_tinyslider.ini</language>
+        <language tag="en-GB">language/en-GB/en-GB.mod_tinyslider.sys.ini</language>
+        <language tag="de-DE">language/de-DE/de-DE.mod_tinyslider.ini</language>
+        <language tag="de-DE">language/de-DE/de-DE.mod_tinyslider.sys.ini</language>
+    </languages>
+
+    <config>
+        <fields name="params">
+            <fieldset name="settings" label="MOD_TINYSLIDER_XML_SETTINGS_LABEL">                     
+                <field name="img_folder"
+                    type="text"
+                    label="MOD_TINYSLIDER_XML_IMG_FOLDER_LABEL"
+                    description="MOD_TINYSLIDER_XML_IMG_FOLDER_DESC"
+                />
+                <field name="effect" 
+                    type="list"
+                    default="carousel"
+                    label="MOD_TINYSLIDER_XML_EFFECT_LABEL"
+                    description="MOD_TINYSLIDER_XML_EFFECT_DESC">
+                  <option value="carousel">MOD_TINYSLIDER_XML_EFFECT_CAROUSEL</option>
+                  <option value="gallery">MOD_TINYSLIDER_XML_EFFECT_GALLERY</option>
+                </field>
+                <field name="timeout"
+                    type="number"
+                    default="5000"
+                    min="1" step="1"
+                    label="MOD_TINYSLIDER_XML_IMG_DURATION_LABEL"
+                    description="MOD_TINYSLIDER_XML_IMG_DURATION_DESC"
+                />
+                <field name="speed"
+                    type="number"
+                    default="1000"
+                    min="1" step="1"
+                    label="MOD_TINYSLIDER_XML_EFFECT_DURATION_LABEL"
+                    description="MOD_TINYSLIDER_XML_EFFECT_DURATION_DESC"
+                />
+                <field name="autoplay"
+                    type="radio"
+                    default="1"
+                    label="MOD_TINYSLIDER_XML_AUTOPLAY_LABEL"
+                    description="MOD_TINYSLIDER_XML_AUTOPLAY_DESC"
+                    class="btn-group btn-group-yesno">
+                  <option value="1">JYES</option>
+                  <option value="0">JNO</option>
+                </field>
+                <field name="arrowkeys"
+                    type="radio"
+                    default="1"
+                    label="MOD_TINYSLIDER_XML_ARROWKEYS_LABEL"
+                    description="MOD_TINYSLIDER_XML_ARROWKEYS_DESC"
+                    class="btn-group btn-group-yesno">
+                  <option value="1">JYES</option>
+                  <option value="0">JNO</option>
+                </field>
+                <field name="mousedrag"
+                    type="radio"
+                    default="0"
+                    label="MOD_TINYSLIDER_XML_MOUSEDRAG_LABEL"
+                    description="MOD_TINYSLIDER_XML_MOUSEDRAG_DESC"
+                    class="btn-group btn-group-yesno">
+                  <option value="1">JYES</option>
+                  <option value="0">JNO</option>
+                </field>
+                <field name="visibilityReset"
+                    type="radio"
+                    default="1"
+                    label="MOD_TINYSLIDER_XML_VISIBILITY_RESET_LABEL"
+                    description="MOD_TINYSLIDER_XML_VISIBILITY_RESET_DESC"
+                    class="btn-group btn-group-yesno">
+                  <option value="1">JYES</option>
+                  <option value="0">JNO</option>
+                </field>
+                <field name="lazyload"
+                    type="radio"
+                    default="1"
+                    label="MOD_TINYSLIDER_XML_LAZYLOAD_LABEL"
+                    description="MOD_TINYSLIDER_XML_LAZYLOAD_DESC"
+                    class="btn-group btn-group-yesno">
+                  <option value="1">JYES</option>
+                  <option value="0">JNO</option>
+                </field>
+            </fieldset>
+        </fields>
+    </config>
+</extension>
