@@ -88,6 +88,7 @@ else
   $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
   $wa->registerAndUseStyle('module.tinyslider', 'mod_tinyslider/tiny-slider.css');
   $wa->registerAndUseScript('module.tinyslider-helper', 'mod_tinyslider/tiny-slider.helper.ie8.js');
+  $wa->addInlineStyle('.tns-outer {z-index: 1;}', ['position' => 'after']);
 
   require ModuleHelper::getLayoutPath('mod_tinyslider');
 }
