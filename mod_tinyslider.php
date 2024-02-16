@@ -23,6 +23,8 @@ use \Joomla\CMS\Factory;
 use \Joomla\CMS\Helper\ModuleHelper;
 use \Joomla\CMS\HTML\HTMLHelper;
 use \Joomla\CMS\Language\Text;
+use \Joomla\CMS\Uri\Uri;
+use \Joomla\CMS\Language\Multilanguage;
 
 // Pick out the input-fields of the backend
 $img_folder       = $params->get('img_folder');
@@ -44,6 +46,13 @@ $img_array = array();
 $num_files = count($all_files);
 $base_folder = JPATH_BASE.'/';
 
+// Change image url to absolute url if if multilanguage is enabled
+$root_url = '';
+if(Multilanguage::isEnabled())
+{
+  $root_url = Uri::root();
+}
+
 if ($num_files == 0)
 {
   echo Text::_('MOD_TINYSLIDER_NOIMAGES');
@@ -61,7 +70,7 @@ else
     if (in_array($ext, $supported_format))
     {
       // create image URL out of path
-      $image_url = substr($image_name, strlen($base_folder));
+      $image_url = $root_url.substr($image_name, strlen($base_folder));
       // create image ALT out of actual image
       $image_alt = substr(substr($image_name, (strpos($image_name,$img_folder) + strlen($img_folder)) + 1), 0, -1 * (strlen($ext) + 1));
       // get width and height of image
