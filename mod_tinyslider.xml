@@ -1,41 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension type="module" version="3.1.0" client="site" method="upgrade">
-    <name>Tiny Slideshow</name>
+<extension type="module" client="site" method="upgrade">
+    <name>mod_tinyslider</name>
     <author>Manuel Häusler</author>
-    <authorUrl>www.tech.spuur.ch</authorUrl>
-    <creationDate>March 2022</creationDate>
-    <copyright>Copyright (C) 2022 Manuel Haeusler. All rights reserved.</copyright>
+    <authorUrl>https://tech.spuur.ch</authorUrl>
+    <creationDate>September 2024</creationDate>
+    <copyright>Copyright (C) 2024 Manuel Haeusler. All rights reserved.</copyright>
     <license>GNU General Public License version 3 or later</license>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
     <description>MOD_TINYSLIDER_XML_DESCRIPTION</description>
+    <namespace path="src">Elfangor93\Module\Tinyslider</namespace>
+    <scriptfile>script.php</scriptfile>
     <files>
-        <filename module="mod_tinyslider">mod_tinyslider.php</filename>
-        <filename>mod_tinyslider.xml</filename>
-        <filename>index.html</filename>
-        <filename>tmpl/default.php</filename>
-        <filename>tmpl/index.html</filename>
+        <folder module="mod_tinyslider">services</folder>
         <folder>language</folder>
+		<folder>src</folder>
+        <folder>tmpl</folder>
     </files>
     <media folder="media" destination="mod_tinyslider">
         <folder>js</folder>
         <folder>css</folder>
     </media>
     <languages>
-        <language tag="en-GB">language/en-GB/en-GB.mod_tinyslider.ini</language>
-        <language tag="en-GB">language/en-GB/en-GB.mod_tinyslider.sys.ini</language>
-        <language tag="de-DE">language/de-DE/de-DE.mod_tinyslider.ini</language>
-        <language tag="de-DE">language/de-DE/de-DE.mod_tinyslider.sys.ini</language>
+        <language tag="en-GB">language/en-GB/mod_tinyslider.ini</language>
+        <language tag="en-GB">language/en-GB/mod_tinyslider.sys.ini</language>
+        <language tag="de-DE">language/de-DE/mod_tinyslider.ini</language>
+        <language tag="de-DE">language/de-DE/mod_tinyslider.sys.ini</language>
     </languages>
 
     <config>
         <fields name="params">
-            <fieldset name="settings" label="MOD_TINYSLIDER_XML_SETTINGS_LABEL">                     
+            <fieldset name="options" label="COM_MODULES_BASIC_FIELDSET_LABEL">                     
                 <field name="img_folder"
                     type="text"
                     label="MOD_TINYSLIDER_XML_IMG_FOLDER_LABEL"
                     description="MOD_TINYSLIDER_XML_IMG_FOLDER_DESC"
+                    hint="images/sampledata/cassiopeia"
                 />
-                <field name="effect" 
+                <field name="effect"
                     type="list"
                     default="carousel"
                     label="MOD_TINYSLIDER_XML_EFFECT_LABEL"
@@ -75,15 +76,6 @@
                   <option value="1">JYES</option>
                   <option value="0">JNO</option>
                 </field>
-                <field name="mousedrag"
-                    type="radio"
-                    default="0"
-                    label="MOD_TINYSLIDER_XML_MOUSEDRAG_LABEL"
-                    description="MOD_TINYSLIDER_XML_MOUSEDRAG_DESC"
-                    class="btn-group btn-group-yesno">
-                  <option value="1">JYES</option>
-                  <option value="0">JNO</option>
-                </field>
                 <field name="visibilityReset"
                     type="radio"
                     default="1"
@@ -102,6 +94,48 @@
                   <option value="1">JYES</option>
                   <option value="0">JNO</option>
                 </field>
+                <field name="mousedrag"
+                    type="radio"
+                    default="0"
+                    label="MOD_TINYSLIDER_XML_MOUSEDRAG_LABEL"
+                    description="MOD_TINYSLIDER_XML_MOUSEDRAG_DESC"
+                    class="btn-group btn-group-yesno">
+                  <option value="1">JYES</option>
+                  <option value="0">JNO</option>
+                </field>
+                <field name="hoverPause"
+                    type="radio"
+                    default="0"
+                    label="MOD_TINYSLIDER_XML_HOVER_PAUSE_LABEL"
+                    description="MOD_TINYSLIDER_XML_HOVER_PAUSE_DESC"
+                    class="btn-group btn-group-yesno">
+                  <option value="1">JYES</option>
+                  <option value="0">JNO</option>
+                </field>
+                <field name="compatibility"
+                    type="radio"
+                    default="0"
+                    label="MOD_TINYSLIDER_XML_COMPATIBILITY_LABEL"
+                    description="MOD_TINYSLIDER_XML_COMPATIBILITY_DESC"
+                    class="btn-group btn-group-yesno">
+                  <option value="1">JYES</option>
+                  <option value="0">JNO</option>
+                </field>
+            </fieldset>
+            <fieldset name="advanced">
+                <field
+                    name="layout"
+                    type="modulelayout"
+                    label="JFIELD_ALT_LAYOUT_LABEL"
+                    class="form-select"
+                />
+                <field
+                    name="moduleclass_sfx"
+                    type="textarea"
+                    label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
+                    rows="3"
+                    validate="CssIdentifier"
+                />
             </fieldset>
         </fields>
     </config>
