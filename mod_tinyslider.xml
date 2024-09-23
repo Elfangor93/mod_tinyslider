@@ -6,7 +6,7 @@
     <creationDate>September 2024</creationDate>
     <copyright>Copyright (C) 2024 Manuel Haeusler. All rights reserved.</copyright>
     <license>GNU General Public License version 3 or later</license>
-    <version>1.1.0</version>
+    <version>2.0.0</version>
     <description>MOD_TINYSLIDER_XML_DESCRIPTION</description>
     <namespace path="src">Elfangor93\Module\Tinyslider</namespace>
     <scriptfile>script.php</scriptfile>
@@ -26,7 +26,6 @@
         <language tag="de-DE">language/de-DE/mod_tinyslider.ini</language>
         <language tag="de-DE">language/de-DE/mod_tinyslider.sys.ini</language>
     </languages>
-
     <config>
         <fields name="params">
             <fieldset name="options" label="COM_MODULES_BASIC_FIELDSET_LABEL">                     
@@ -139,4 +138,7 @@
             </fieldset>
         </fields>
     </config>
+    <updateservers>
+      <server type="extension" name="Tiny Slideshow" priority="1">https://updates.spuur.ch/mod_tinyslider.xml</server>
+    </updateservers>
 </extension>

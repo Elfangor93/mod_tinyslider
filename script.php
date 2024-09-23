@@ -1,7 +1,7 @@
 <?php
 /**
 ****************************************************************************
-**   @version    1.1.0                                                    **
+**   @version    2.0.0                                                    **
 **   @package    mod_tinyslider                                           **
 **   @author     Manuel Häusler <tech.spuur@quickline.ch>                 **
 **   @copyright  2024 Manuel Haeusler                                     **
