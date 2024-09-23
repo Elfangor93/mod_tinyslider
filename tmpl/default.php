@@ -1,51 +1,40 @@
 <?php
 /**
- * VIEW of the tiny slider module
- * 
- * @package    Tinyslider
- * @subpackage mod_tinyslider
- * @version    1.0.0
- *
- * @author     Manuel Haeusler <tech.spuur@quickline.com>
- * @copyright  2022 Manuel Haeusler
- * @license    GNU/GPL, see LICENSE.php
- *
- * mod_tinyslider is free software. This version may have been modified pursuant
- * to the GNU General Public License, and as distributed it includes or
- * is derivative of works licensed under the GNU General Public License or
- * other free or open source software licenses.
- */
+****************************************************************************
+**   @version    2.0.0                                                    **
+**   @package    mod_tinyslider                                           **
+**   @author     Manuel Häusler <tech.spuur@quickline.ch>                 **
+**   @copyright  2024 Manuel Haeusler                                     **
+**   @license    GNU General Public License version 3 or later            **
+****************************************************************************/
 
-// No direct access
-defined('_JEXEC') or die; 
-
-use \Joomla\CMS\Uri\Uri;
+defined('_JEXEC') or die;
 ?>
 
 <div class="tinyslider">
   <?php foreach ($img_array as $key => $img) : ?>
     <div>
-      <img id="sliderIMG-<?php echo $key; ?>" class="slideshow-img<?php if($slider_lazyload){echo ' tns-lazy-img';}?>" <?php if($slider_lazyload){echo 'data-';}?>src="<?php echo $img['url'];?>" alt="<?php echo $img['alt'];?>" width="<?php echo $img['width'];?>" height="<?php echo $img['height'];?>"/>
+      <img id="sliderIMG-<?php echo $key; ?>" class="slideshow-img<?php if($params->get('lazyload', 1)){echo ' tns-lazy-img';}?>" <?php if($params->get('lazyload', 1)){echo 'data-';}?>src="<?php echo $img['url'];?>" alt="<?php echo $img['alt'];?>" width="<?php echo $img['width'];?>" height="<?php echo $img['height'];?>"/>
     </div>
   <?php endforeach; ?>
 </div>
 
-<script src="<?php echo Uri::base(true).'/media/mod_tinyslider/js/tiny-slider.min.js'; ?>"></script>
-
 <script>
   let options = {
     container: '.tinyslider',
-    mode: '<?php echo $slider_effect;?>',
-    lazyload: <?php if($slider_lazyload){echo 'true';} else {echo 'false';}; ?>,
-    arrowKeys: <?php if($slider_arrowkeys){echo 'true';} else {echo 'false';}; ?>,
-    mouseDrag: <?php if($slider_mousedrag){echo 'true';} else {echo 'false';}; ?>,
-    speed: <?php echo intval($slider_speed); ?>,
-    autoplay: <?php if($slider_autoplay){echo 'true';} else {echo 'false';}; ?>,
-    autoplayTimeout: <?php echo intval($slider_timeout); ?>,
+    mode: '<?php echo $params->get('effect', 'carousel');?>',
+    lazyload: <?php if($params->get('lazyload', 1)){echo 'true';} else {echo 'false';}; ?>,
+    arrowKeys: <?php if($params->get('arrowkeys', 1)){echo 'true';} else {echo 'false';}; ?>,
+    mouseDrag: <?php if($params->get('mousedrag', 0)){echo 'true';} else {echo 'false';}; ?>,
+    speed: <?php echo intval($params->get('speed', 1000)); ?>,
+    autoplay: <?php if($params->get('autoplay', 1)){echo 'true';} else {echo 'false';}; ?>,
+    autoplayTimeout: <?php echo intval($params->get('timeout', 5000)); ?>,
     autoplayButtonOutput: false,
-    autoplayResetOnVisibility: <?php if($slider_vis_reset){echo 'true';} else {echo 'false';}; ?>,
+    autoplayResetOnVisibility: <?php if($params->get('visibilityReset', 1)){echo 'true';} else {echo 'false';}; ?>,
+    autoplayHoverPause: <?php if($params->get('hoverPause', 0)){echo 'true';} else {echo 'false';}; ?>,
     controls: false,
     nav: false,
+    center: true
   }
 
   let slider = tns(options);
