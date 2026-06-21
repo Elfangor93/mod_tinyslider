@@ -33,25 +33,24 @@ class Dispatcher extends AbstractModuleDispatcher implements HelperFactoryAwareI
      *
      * @since   2.0.0
      */
-    protected function getLayoutData()
+    protected function getLayoutData(): array
     {
         $data = parent::getLayoutData();
+        $module = $data['module'];
 
         // Get images
         $data['img_array'] = $this->getHelperFactory()->getHelper('TinysliderHelper')->getImages($data['params']);
 
         // Random image pointer
-        $data['rnd_ini'] = \rand(0, (\count($data['img_array']) - 1));
+        $data['rnd_ini'] = \count($data['img_array']) > 0 ? \rand(0, \count($data['img_array']) - 1) : null;
+        $data['module_id'] = (int) $module->id;
 
         // Set and use assets
         /** @var Joomla\CMS\WebAsset\WebAssetManager $wa */
         $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
-        $wa->registerAndUseStyle('mod_tinyslider', 'mod_tinyslider/tiny-slider.css');
-        if($data['params']->get('compatibility', 0))
-        {
-            $wa->registerAndUseScript('mod_tinyslider-helper', 'mod_tinyslider/tiny-slider.helper.ie8.min.js');
-        }
-        $wa->registerAndUseScript('mod_tinyslider', 'mod_tinyslider/tiny-slider.min.js');
+        $wa->getRegistry()->addRegistryFile('media/mod_tinyslider/joomla.asset.json');
+        $wa->useStyle('mod_tinyslider.tiny-slider')
+            ->useScript('mod_tinyslider.tiny-slider');
         $wa->addInlineStyle('.tns-outer {z-index: 1;}', ['position' => 'after']);
 
         return $data;

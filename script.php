@@ -20,7 +20,7 @@ use Joomla\DI\ServiceProviderInterface;
 
 return new class () implements ServiceProviderInterface
 {
-  public function register(Container $container)
+  public function register(Container $container): void
   {
     $container->set(
         InstallerScriptInterface::class,
@@ -29,8 +29,8 @@ return new class () implements ServiceProviderInterface
         private AdministratorApplication $app;
         private DatabaseInterface $db;
 
-        private string $minimumJoomla = '4.0.0';
-        private string $minimumPhp    = '7.4.0';
+        private string $minimumJoomla = '4.4.0';
+        private string $minimumPhp    = '8.0.0';
         private string $extension     = 'mod_tinyslider';
 
         public function __construct(AdministratorApplication $app, DatabaseInterface $db)
@@ -136,7 +136,7 @@ return new class () implements ServiceProviderInterface
          *
          * @return  string    The message
          */
-        private function postInstallMessage($title, $version = '', $install_msg = '')
+        private function postInstallMessage(string $title, string $version = '', string $install_msg = ''): string
         {
           $style = '<style>.img-wrapper a[target="_blank"]::before{content:""!important;padding:0!important;}.img-wrapper img{max-width:100%;max-height:250px;}.txt-wrapper{display:flex;flex-direction:column;justify-content:center;align-content:space-between;text-align:center;}.txt-wrapper>p{margin:0.7rem 0;}.txt-wrapper .alert{margin:1rem 0 0;}.alert.alert-info a:hover{color:var(--btn-hover-color);}</style>';
 
@@ -154,11 +154,11 @@ return new class () implements ServiceProviderInterface
           }
           $html .=        '<div class="alert alert-info">';
           $html .=          '<p>' . Text::_(strtoupper($this->extension).'_DONATE_TEXT') . '</p>';
-          $html .=          '<a class="btn btn-outline-primary" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=C28HUM53S6EC2" target="_blank">' . Text::_(strtoupper($this->extension).'_DONATE') . '</a>';
+          $html .=          '<a class="btn btn-outline-primary" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=C28HUM53S6EC2" target="_blank" rel="noopener noreferrer">' . Text::_(strtoupper($this->extension).'_DONATE') . '</a>';
           $html .=        '</div>';
           $html .=      '</div>';
           $html .=      '<div class="img-wrapper col-3 text-center">';
-          $html .=          '<a href="https://tech.spuur.ch" target="_blank">';
+          $html .=          '<a href="https://tech.spuur.ch" target="_blank" rel="noopener noreferrer">';
           $html .=            '<img src="https://tech.spuur.ch/images/symbols/logo_cpl.png" alt="Logo Tech.Spuur">';
           $html .=          '</a>';
           $html .=      '</div>';
