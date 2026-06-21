@@ -1,0 +1,24 @@
+{
+  "$schema": "https://developer.joomla.org/schemas/json-schema/web_assets.json",
+  "name": "mod_tinyslider",
+  "version": "2.1.0",
+  "description": "Tiny Slideshow module assets",
+  "license": "GPL-3.0-or-later",
+  "assets": [
+    {
+      "name": "mod_tinyslider.tiny-slider",
+      "type": "style",
+      "uri": "mod_tinyslider/tiny-slider.css",
+      "version": "auto"
+    },
+    {
+      "name": "mod_tinyslider.tiny-slider",
+      "type": "script",
+      "uri": "mod_tinyslider/tiny-slider.min.js",
+      "version": "auto",
+      "attributes": {
+        "defer": true
+      }
+    }
+  ]
+}

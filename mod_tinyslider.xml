@@ -17,6 +17,7 @@
         <folder>tmpl</folder>
     </files>
     <media folder="media" destination="mod_tinyslider">
+        <filename>joomla.asset.json</filename>
         <folder>js</folder>
         <folder>css</folder>
     </media>
@@ -107,15 +108,6 @@
                     default="0"
                     label="MOD_TINYSLIDER_XML_HOVER_PAUSE_LABEL"
                     description="MOD_TINYSLIDER_XML_HOVER_PAUSE_DESC"
-                    class="btn-group btn-group-yesno">
-                  <option value="1">JYES</option>
-                  <option value="0">JNO</option>
-                </field>
-                <field name="compatibility"
-                    type="radio"
-                    default="0"
-                    label="MOD_TINYSLIDER_XML_COMPATIBILITY_LABEL"
-                    description="MOD_TINYSLIDER_XML_COMPATIBILITY_DESC"
                     class="btn-group btn-group-yesno">
                   <option value="1">JYES</option>
                   <option value="0">JNO</option>

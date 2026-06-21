@@ -1,10 +1,10 @@
 <?php
 /**
 ****************************************************************************
-**   @version    2.0.0                                                    **
+**   @version    2.1.0                                                    **
 **   @package    mod_tinyslider                                           **
 **   @author     Manuel Häusler <tech.spuur@quickline.ch>                 **
-**   @copyright  2024 Manuel Haeusler                                     **
+**   @copyright  2026 Manuel Haeusler                                     **
 **   @license    GNU General Public License version 3 or later            **
 ****************************************************************************/
 
@@ -12,7 +12,6 @@ namespace Elfangor93\Module\Tinyslider\Site\Helper;
 
 \defined('_JEXEC') or die;
 
-use \Joomla\CMS\Language\Text;
 use \Joomla\CMS\Uri\Uri;
 use \Joomla\CMS\Language\Multilanguage;
 use \Joomla\Registry\Registry;
@@ -33,15 +32,23 @@ class TinysliderHelper
    *
    * @since   2.0.0
    */
-  public static function getImages(Registry $params)
+  public static function getImages(Registry $params): array
   {
-    $img_folder = $params->get('img_folder', 'images/sampledata/cassiopeia');
-
-    // Create image array
-    $all_files = \glob(JPATH_BASE.'/'.$img_folder.'/*.*');
+    $img_folder = \trim(\str_replace('\\', '/', (string) $params->get('img_folder', 'images/sampledata/cassiopeia')), '/');
     $img_array = [];
-    $num_files = \count($all_files);
-    $base_folder = JPATH_BASE.'/';
+
+    if ($img_folder === '' || \preg_match('#(^|/)\.\.(/|$)|^[a-z]:|^/#i', $img_folder)) {
+      return $img_array;
+    }
+
+    $base_folder = \rtrim(JPATH_ROOT, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
+    $folder_path = \realpath($base_folder . \str_replace('/', DIRECTORY_SEPARATOR, $img_folder));
+
+    if ($folder_path === false || !\is_dir($folder_path) || !\str_starts_with($folder_path . DIRECTORY_SEPARATOR, $base_folder)) {
+      return $img_array;
+    }
+
+    $all_files = \glob($folder_path . DIRECTORY_SEPARATOR . '*.*') ?: [];
 
     // Change image url to absolute url if multilanguage is enabled
     $root_url = '';
@@ -50,39 +57,41 @@ class TinysliderHelper
       $root_url = Uri::root();
     }
 
-    if ($num_files == 0)
+    foreach ($all_files as $image_name)
     {
-      echo Text::_('MOD_TINYSLIDER_NOIMAGES');
-    }
-    else
-    {
-      for ($i=0; $i < $num_files; $i++)
-      {
-        $image_name = $all_files[$i];
-
-        // supported formats
-        $supported_format = ['jpg','jpeg','png'];
-
-        // save file-extension in $ext
-        $ext = \strtolower(\pathinfo($image_name, PATHINFO_EXTENSION));
-
-        // check if file has a supportet format
-        if (\in_array($ext, $supported_format))
-        {
-          // create image URL out of path
-          $image_url = $root_url . \substr($image_name, \strlen($base_folder));
-
-          // create image ALT out of actual image
-          $image_alt = \substr(\substr($image_name, (\strpos($image_name, $img_folder) + \strlen($img_folder)) + 1), 0, -1 * (\strlen($ext) + 1));
-
-          // get width and height of image
-          list($width, $height, $type, $attr) = \getimagesize($image_name);
-          $img = ['url' => $image_url, 'alt' => $image_alt, 'width' => $width, 'height' => $height];
-          \array_push($img_array, $img);
-        }
+      if (!\is_file($image_name)) {
+        continue;
       }
 
-      return $img_array;
+      // supported formats
+      $supported_format = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'avif'];
+
+      // save file-extension in $ext
+      $ext = \strtolower(\pathinfo($image_name, PATHINFO_EXTENSION));
+
+      // check if file has a supported format
+      if (!\in_array($ext, $supported_format, true)) {
+        continue;
+      }
+
+      $image_size = \getimagesize($image_name);
+
+      if ($image_size === false) {
+        continue;
+      }
+
+      $relative_path = \str_replace(DIRECTORY_SEPARATOR, '/', \substr($image_name, \strlen($base_folder)));
+      $image_url = $root_url . $relative_path;
+      $image_alt = \pathinfo($image_name, PATHINFO_FILENAME);
+
+      $img_array[] = [
+        'url' => $image_url,
+        'alt' => $image_alt,
+        'width' => (int) $image_size[0],
+        'height' => (int) $image_size[1],
+      ];
     }
+
+    return $img_array;
   }
 }
